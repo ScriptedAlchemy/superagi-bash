@@ -15,14 +15,14 @@ def validate_command(command: str) -> bool:
         return True
     except ValueError:
         return False
-        
+
 class BashCommandTool(BaseTool):
     """
     Bash Command Tool
     """
     name: str = "Bash Command Tool"
     args_schema: Type[BaseModel] = BashCommandInput
-      description: str = "Executes a Bash Command"
+    description: str = "Executes a Bash Command"  # Fixed indentation here
 
     def _execute(self, command: str = None):
         if not validate_command(command):
