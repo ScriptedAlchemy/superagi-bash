@@ -1,21 +1,35 @@
-from superagi.tools.base_tool import BaseTool
+from abc import ABC
+from superagi.tools.base_tool import BaseToolkit, BaseTool
+from typing import Type, List
+import subprocess
+import shlex
 from pydantic import BaseModel, Field
-from typing import Type
 
+class BashCommandInput(BaseModel):
+    command: str = Field(..., description="Bash command to be executed")
 
-class GreetingsInput(BaseModel):
-    greetings: str = Field(..., description="Greeting message to be sent")
-
-
-class GreetingsTool(BaseTool):
+# Function to validate bash command
+def validate_command(command: str) -> bool:
+    try:
+        shlex.split(command)
+        return True
+    except ValueError:
+        return False
+        
+class BashCommandTool(BaseTool):
     """
-    Greetings Tool
+    Bash Command Tool
     """
-    name: str = "Greetings Tool"
-    args_schema: Type[BaseModel] = GreetingsInput
-    description: str = "Sends a Greeting Message"
+    name: str = "Bash Command Tool"
+    args_schema: Type[BaseModel] = BashCommandInput
+      description: str = "Executes a Bash Command"
 
-    def _execute(self, greetings: str = None):
-        from_name = self.get_tool_config('FROM')
-        greetings_str = greetings + "\n" + from_name
-        return greetings_str
+    def _execute(self, command: str = None):
+        if not validate_command(command):
+            return "Invalid bash command."
+        
+        try:
+            result = subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE)
+            return result.stdout.decode('utf-8')
+        except subprocess.CalledProcessError as e:
+            return f"Command '{command}' returned non-zero exit status {e.returncode}."
