@@ -4,7 +4,7 @@ from typing import Type, List
 import subprocess
 import shlex
 from pydantic import BaseModel, Field
-from greetings_tool import GreetingsTool
+from greetings_tool import BashCommandTool
 
 # Update the Toolkit class
 class BashCommandToolkit(BaseToolkit, ABC):
