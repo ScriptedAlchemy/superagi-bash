@@ -4,7 +4,7 @@ from typing import Type, List
 import subprocess
 import shlex
 from pydantic import BaseModel, Field
-from greetings_tool import BashCommandTool
+from bash_tool import BashCommandTool
 
 # Update the Toolkit class
 class BashCommandToolkit(BaseToolkit, ABC):
@@ -14,5 +14,5 @@ class BashCommandToolkit(BaseToolkit, ABC):
     def get_tools(self) -> List[BaseTool]:
         return [BashCommandTool()]
 
-    # def get_env_keys(self) -> List[str]:
-    #     return []
+    def get_env_keys(self) -> List[str]:
+        return []
