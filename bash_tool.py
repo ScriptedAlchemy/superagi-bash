@@ -42,7 +42,7 @@ class BashCommandTool(BaseTool):
         print(output_directory)
 
         try:
-            result = subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            result = subprocess.run(command, cwd=output_directory, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
             print(result.stdout.decode('utf-8'))
         except subprocess.CalledProcessError as e:
             print('sterr12')
