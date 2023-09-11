@@ -42,13 +42,13 @@ class BashCommandTool(BaseTool):
         print(output_directory)
 
         try:
-            result = subprocess.run(command,cwd=output_directory, shell=True, check=True, stdout=subprocess.PIPE)
-            return f"{result.stdout.decode('utf-8')}"
+            result = subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            print(result.stdout.decode('utf-8'))
         except subprocess.CalledProcessError as e:
             print('sterr12')
-            print(e.stderr)
-            
-            return f"Command '{command}' returned non-zero exit status: {e.returncode}. {e.stderr}"
+            stderr_message = e.stderr.decode('utf-8') if e.stderr is not None else 'No stderr message'
+            print(f"Command '{command}' returned non-zero exit status: {e.returncode}.\n{stderr_message}")
+
 
 
 
