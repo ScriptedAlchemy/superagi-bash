@@ -30,7 +30,7 @@ class BashCommandTool(BaseTool):
             return "Invalid bash command."
         
         try:
-            result = subprocess.run(command, shell=True, check=True, stdout=subprocess.PIPE)
+            result = subprocess.run(f'cd ./workspace && {command}', shell=True, check=True, stdout=subprocess.PIPE)
             return result.stdout.decode('utf-8')
         except subprocess.CalledProcessError as e:
             return f"Command '{command}' returned non-zero exit status {e.returncode}."
