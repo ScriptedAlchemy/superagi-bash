@@ -24,12 +24,16 @@ class BashCommandTool(BaseTool):
     name: str = "Bash Command Tool"
     args_schema: Type[BaseModel] = BashCommandInput
     agent_id: int = None
-    description: str = "Executes a Bash Command"  # Fixed indentation here
+    description: str = "Executes a Bash Command"
 
     def _execute(self, command: str = None):
         if not validate_command(command):
             return "Invalid bash command."
         
+        print("zzh")
+        print(f'{self.agent_id}')
+        print(f'{agent_id}')
+
         try:
             result = subprocess.run(f'cd ./workspace && {command}', shell=True, check=True, stdout=subprocess.PIPE)
             return result.stdout.decode('utf-8') + self.agent_id
