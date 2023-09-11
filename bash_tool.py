@@ -43,7 +43,7 @@ class BashCommandTool(BaseTool):
 
         try:
             result = subprocess.run(f'cd ./workspace && {command}', shell=True, check=True, stdout=subprocess.PIPE)
-            return f"{result.stdout.decode('utf-8')}{self.agent_id}"
+            return f"{result.stdout.decode('utf-8')}"
         except subprocess.CalledProcessError as e:
             return f"Command '{command}' returned non-zero exit status {e.returncode}."
 
