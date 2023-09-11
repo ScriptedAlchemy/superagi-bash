@@ -43,7 +43,7 @@ class BashCommandTool(BaseTool):
                                                                                                agent_id=self.agent_id),
                                                                             path=output_directory)
 
-        print(f'{output_directory}')
+        print(output_directory)
         try:
             result = subprocess.run(f'cd ./workspace && {command}', shell=True, check=True, stdout=subprocess.PIPE)
             return result.stdout.decode('utf-8') + self.agent_id
