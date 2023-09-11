@@ -23,6 +23,7 @@ class BashCommandTool(BaseTool):
     """
     name: str = "Bash Command Tool"
     args_schema: Type[BaseModel] = BashCommandInput
+    agent_id: int = None
     description: str = "Executes a Bash Command"  # Fixed indentation here
 
     def _execute(self, command: str = None):
@@ -31,6 +32,6 @@ class BashCommandTool(BaseTool):
         
         try:
             result = subprocess.run(f'cd ./workspace && {command}', shell=True, check=True, stdout=subprocess.PIPE)
-            return result.stdout.decode('utf-8')
+            return result.stdout.decode('utf-8') + self.agent_id
         except subprocess.CalledProcessError as e:
             return f"Command '{command}' returned non-zero exit status {e.returncode}."
