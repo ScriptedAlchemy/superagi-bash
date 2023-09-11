@@ -1,5 +1,7 @@
 from abc import ABC
 from superagi.tools.base_tool import BaseToolkit, BaseTool
+from superagi.models.agent import Agent
+from superagi.helper.resource_helper import ResourceHelper
 from typing import Type, List
 import subprocess
 import shlex
@@ -32,8 +34,16 @@ class BashCommandTool(BaseTool):
         
         print("zzh")
         print(f'{self.agent_id}')
-        print(f'{agent_id}')
+        # input_directory = ResourceHelper.get_root_input_dir()
+        output_directory = ResourceHelper.get_root_output_dir()
+        if "{agent_id}" in output_directory:
+            output_directory = ResourceHelper.get_formatted_agent_level_path(agent=Agent
+                                                                            .get_agent_from_id(session=self
+                                                                                               .toolkit_config.session,
+                                                                                               agent_id=self.agent_id),
+                                                                            path=output_directory)
 
+        print(f'{output_directory}')
         try:
             result = subprocess.run(f'cd ./workspace && {command}', shell=True, check=True, stdout=subprocess.PIPE)
             return result.stdout.decode('utf-8') + self.agent_id
