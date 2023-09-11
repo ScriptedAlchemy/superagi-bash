@@ -42,7 +42,7 @@ class BashCommandTool(BaseTool):
         print(output_directory)
 
         try:
-            result = subprocess.run(f'cd ./workspace && {command}', shell=True, check=True, stdout=subprocess.PIPE)
+            result = subprocess.run(command,cwd=output_directory, shell=True, check=True, stdout=subprocess.PIPE)
             return f"{result.stdout.decode('utf-8')}"
         except subprocess.CalledProcessError as e:
             return f"Command '{command}' returned non-zero exit status {e.returncode}."
