@@ -45,7 +45,7 @@ class BashCommandTool(BaseTool):
             result = subprocess.run(command,cwd=output_directory, shell=True, check=True, stdout=subprocess.PIPE)
             return f"{result.stdout.decode('utf-8')}"
         except subprocess.CalledProcessError as e:
-            return f"Command '{command}' returned non-zero exit status {e.returncode}."
+            return f"Command '{command}' returned non-zero exit status: {e}."
 
 
 
