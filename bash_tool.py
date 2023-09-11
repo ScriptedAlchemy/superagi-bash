@@ -32,7 +32,7 @@ class BashCommandTool(BaseTool):
         print(self.agent_id)
         output_directory = ResourceHelper.get_root_output_dir()
 
-        if str(self.agent_id) in output_directory:
+        if "{agent_id}" in output_directory:
             output_directory = ResourceHelper.get_formatted_agent_level_path(
                 agent=Agent.get_agent_from_id(session=self.toolkit_config.session, agent_id=self.agent_id),
                 path=output_directory
