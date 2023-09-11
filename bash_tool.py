@@ -48,7 +48,7 @@ class BashCommandTool(BaseTool):
             print(e)
             print(e.stderr)
             print(e.stdout)
-            return f"Command '{command}' returned non-zero exit status: {e.returncode}. Error: {e.stderr.decode('utf-8')}"
+            return f"Command '{command}' returned non-zero exit status: {e.returncode}."
 
 
 
