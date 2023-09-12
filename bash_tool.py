@@ -48,8 +48,8 @@ class BashCommandTool(BaseTool):
         except subprocess.CalledProcessError as e:
             stderr_message = e.stderr.decode('utf-8') if e.stderr is not None else 'No stderr message'
             filtered_stderr_message = re.sub(r'\x1b\[[0-9;]*m', '', stderr_message)
-            print(filtered_stderr_message)
-            return filtered_stderr_message
+            last_100_lines = '\n'.join(filtered_stderr_message.split('\n')[-100:])
+            return last_100_lines
 
 
 
