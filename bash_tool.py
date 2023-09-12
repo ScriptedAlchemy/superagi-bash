@@ -7,6 +7,7 @@ import subprocess
 import shlex
 from pydantic import BaseModel, Field
 import os
+import re
 
 class BashCommandInput(BaseModel):
     command: str = Field(..., description="Bash command to be executed")
