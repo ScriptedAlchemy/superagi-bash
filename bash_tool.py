@@ -49,6 +49,8 @@ class BashCommandTool(BaseTool):
             stderr_message = e.stderr.decode('utf-8') if e.stderr is not None else 'No stderr message'
             print(f"Command '{command}' returned non-zero exit status: {e.returncode}.\n{stderr_message}")
 
+        return result.stdout.decode('utf-8')
+
 
 
 
